@@ -1,0 +1,83 @@
+[
+  {
+    "name": "End-to-end course creation then student sees catalog",
+    "steps": [
+      {
+        "send": { "callback": "teacher:create_course", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "text": "Ada Teacher", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "skip", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "tz:teacher:UTC", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "callback": "teacher:create_course", "userId": 10, "chatId": 10 },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": { "text": "Let's create a course.\n\nWhat's the course title?" }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Live Design Lab", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "skip", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "25", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "2026-12-15 10:00", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "1", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "https://meet.example.com/design", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "course:publish", "userId": 10, "chatId": 10 },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "callback": "student:browse_courses", "userId": 20, "chatId": 20 },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "text": "Sam Student", "userId": 20, "chatId": 20 },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "tz:student:UTC", "userId": 20, "chatId": 20 },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "callback": "student:browse_courses", "userId": 20, "chatId": 20 },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Available courses — tap one to see sessions, price, and open seats."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

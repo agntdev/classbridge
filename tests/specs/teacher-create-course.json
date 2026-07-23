@@ -1,19 +1,138 @@
 [
   {
-    "name": "Create Course",
+    "name": "Create Course starts teacher profile when new",
     "steps": [
       {
+        "send": { "callback": "teacher:create_course" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Before you create a course, let's finish your teacher profile.\n\nWhat's your name as students should see it?"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Teacher onboarding then creates a course end-to-end",
+    "steps": [
+      {
+        "send": { "callback": "teacher:create_course" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Before you create a course, let's finish your teacher profile.\n\nWhat's your name as students should see it?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Ada Teacher" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Launch course creation wizard with session scheduling"
+              "text": "Nice to meet you, Ada Teacher.\n\nAdd a short bio (or type \"skip\"):"
             }
           }
-        ],
-        "send": {
-          "callback": "teacher:create_course"
-        }
+        ]
+      },
+      {
+        "send": { "text": "skip" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Which timezone should we use for your session times?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "tz:teacher:UTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "You're all set, Ada Teacher.\n\nTimezone: UTC\n\nTap Create course to publish your first class."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "teacher:create_course" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Let's create a course.\n\nWhat's the course title?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Intro to TypeScript" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Add a short description students will see (or type \"skip\"):"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Learn TS fundamentals live." },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "What one-time price should students pay? (e.g. 49 or 49.99)"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "49" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Price set to $49.00.\n\nWhen is the first session?\nUse your timezone (UTC):\n• YYYY-MM-DD HH:mm  (e.g. 2026-08-01 18:00)\n• or full ISO with offset"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "2026-12-01 18:00" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "2" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Paste the session join link (Zoom, Meet, or any URL students will use):"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "https://meet.example.com/ts-intro" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "course:publish" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
       }
     ]
   }

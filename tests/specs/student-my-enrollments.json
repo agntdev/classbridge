@@ -1,19 +1,37 @@
 [
   {
-    "name": "My Enrollments",
+    "name": "My Enrollments empty state after profile",
     "steps": [
       {
+        "send": { "callback": "student:my_enrollments" },
         "expect": [
+          { "method": "answerCallbackQuery" },
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "View active courses and session schedule"
+              "text": "Before you enroll, let's set up your student profile.\n\nWhat name should teachers see?"
             }
           }
-        ],
-        "send": {
-          "callback": "student:my_enrollments"
-        }
+        ]
+      },
+      {
+        "send": { "text": "Sam Student" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "tz:student:UTC" },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "callback": "student:my_enrollments" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "No enrollments yet — browse courses to find a class and join."
+            }
+          }
+        ]
       }
     ]
   }

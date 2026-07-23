@@ -7,7 +7,43 @@
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": {
+              "text": "Welcome to CourseConnect.\n\nTeach paid online courses or enroll as a student — schedules, payments, join links, and reminders all live here.\n\nTap a button below to get started."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Back to menu re-renders welcome",
+    "steps": [
+      {
+        "send": { "callback": "menu:main" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Welcome to CourseConnect.\n\nTeach paid online courses or enroll as a student — schedules, payments, join links, and reminders all live here.\n\nTap a button below to get started."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "flow cancel returns to menu",
+    "steps": [
+      {
+        "send": { "callback": "flow:cancel" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Cancelled. Nothing was saved.\n\nTap a button below when you're ready."
+            }
           }
         ]
       }
