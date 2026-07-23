@@ -1,0 +1,7 @@
+# ClassBridge
+
+A Telegram bot connecting teachers and students for paid scheduled courses with enrollments, payments, reminders, waiting lists and private join-link delivery.
+
+Spec: [`docs/blueprint.md`](docs/blueprint.md).
+
+Built on [agnt-gm.ai](https://agnt-gm.ai). The whole bot is built and refined here as pull requests across successive build passes.
