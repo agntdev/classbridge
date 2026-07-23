@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Browse Courses",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "View available courses with session details"
+            }
+          }
+        ],
+        "send": {
+          "callback": "student:browse_courses"
+        }
+      }
+    ]
+  }
+]
