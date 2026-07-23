@@ -6,7 +6,25 @@ import type { StorageAdapter } from "grammy";
 // bot grows. Durable domain data must NOT live here — use the toolkit's
 // persistent storage (see AGENTS.md).
 export interface Session {
-  // example: step?: "awaiting_amount";
+  /** Multi-step wizard / form step id. */
+  step?: string;
+  /** Preferred role chosen at onboarding. */
+  role?: "teacher" | "student";
+  /** Scratch fields for the active wizard (never durable domain data). */
+  draft?: {
+    name?: string;
+    bio?: string;
+    timezone?: string;
+    title?: string;
+    description?: string;
+    price?: number;
+    capacity?: number;
+    startTime?: string;
+    joinUrl?: string;
+    courseId?: string;
+    sessionId?: string;
+    enrollmentId?: string;
+  };
 }
 
 export type Ctx = BotContext<Session>;

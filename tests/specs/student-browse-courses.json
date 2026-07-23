@@ -1,19 +1,51 @@
 [
   {
-    "name": "Browse Courses",
+    "name": "Browse Courses empty catalog",
     "steps": [
       {
+        "send": { "callback": "student:browse_courses" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Before you enroll, let's set up your student profile.\n\nWhat name should teachers see?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Sam Student" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "View available courses with session details"
+              "text": "Got it. Which timezone should we use for reminders and session times?"
             }
           }
-        ],
-        "send": {
-          "callback": "student:browse_courses"
-        }
+        ]
+      },
+      {
+        "send": { "callback": "tz:student:UTC" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "You're all set, Sam Student.\n\nTimezone: UTC\n\nBrowse open courses whenever you're ready."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "student:browse_courses" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "No courses are open right now. Check back soon — or teach one yourself."
+            }
+          }
+        ]
       }
     ]
   }

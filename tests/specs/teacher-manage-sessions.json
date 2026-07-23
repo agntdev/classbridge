@@ -1,19 +1,41 @@
 [
   {
-    "name": "Manage Sessions",
+    "name": "Manage Sessions empty when no courses",
     "steps": [
       {
+        "send": { "callback": "role:teacher" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Edit session capacity/waiting list"
+              "text": "Let's set up your teacher profile.\n\nWhat's your name as students should see it?"
             }
           }
-        ],
-        "send": {
-          "callback": "teacher:manage_sessions"
-        }
+        ]
+      },
+      {
+        "send": { "text": "Ada Teacher" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "skip" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "tz:teacher:UTC" },
+        "expect": [{ "method": "editMessageText" }]
+      },
+      {
+        "send": { "callback": "teacher:manage_sessions" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "You don't have any courses yet — tap Create course to publish your first one."
+            }
+          }
+        ]
       }
     ]
   }
